@@ -1,0 +1,1 @@
+console.log("Script is all hooked up and ready to go, cap'n!");
