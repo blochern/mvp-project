@@ -17,6 +17,8 @@ const pool = new Pool({
     connectionString: process.env.DATABASE_URL
 });
 
+app.use(express.static("public"));
+
 // 2. For this commit, all I want right now is the "get all" handler
 // for later uses, replace "template" with the actual names of the items
 app.get("/template", async (_, response) => {
