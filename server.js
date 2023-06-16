@@ -19,9 +19,7 @@ app.use(express.static("public"));
 
 // get all route
 app.get("/vehicles", async (request, response) => {
-    if (request.body.search) {
-        const { search } = request.body;
-    }
+    const { search } = request.body;
     try {
         if (!search) {
             const results = await pool.query("SELECT * FROM vehicles;");
