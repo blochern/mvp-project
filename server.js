@@ -72,6 +72,30 @@ app.post("/vehicles", async (request, response) => {
     }
 });
 
+// put one
+app.put("/vehicles/:id", async (request, response) => {
+    // for now, update will require all properties to be validated
+    const { id } = request.params; const { name, tech_level, weapon_type, cost, faction, stealth } = request.body;
+    if (!name || isNaN(+tech_level) || !weapon_type || isNaN(+cost) || !faction || (typeof stealth) !== 'boolean') {
+        response.status(400).send("Invalid name, tech_level, weapon_type, cost, faction, or stealth"); return;
+    }
+    try {
+        const results = await pool.query(
+            "UPDATE vehicles SET name = $1, tech_level = $2, weapon_type = $3, cost = $4, faction = $5, stealth = $6 WHERE id = $7 RETURNING *",
+            [name, tech_level, weapon_type, cost, faction, stealth, id]
+        );
+        if (results.rowCount === 0) {
+            response.status(404).send("Not found"); return;
+        }
+        else {
+            response.json(results.rows[0]); return;
+        }
+    }
+    catch (error) {
+        console.error(error.message);
+        response.status(500).send("Internal Server Error");
+    }
+});
 
 // 2. Listener
 app.listen(process.env.PORT, () => { console.log("Server is running, port...", process.env.PORT) });
