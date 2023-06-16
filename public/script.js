@@ -38,6 +38,8 @@ const createEntry = (object) => {
     tableBody.appendChild(tr);
 }
 
-createEntry(exampleObject);
-
-fetch("/vehicles").then((response) => response.json()).then((data) => { console.log(data) });
+fetch("/vehicles").then((response) => response.json()).then((data) => { 
+    for (let elem of data) {
+        createEntry(elem);
+    }
+ });
