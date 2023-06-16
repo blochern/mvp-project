@@ -39,7 +39,7 @@ app.get("/vehicles/:id", async (request, response) => {
             response.status(404).send("Not found"); return;
         }
         else {
-            response.status(200).json(results.rows[0]); return
+            response.status(200).json(results.rows[0]); return;
         }
     }
     catch (err) {
@@ -92,6 +92,24 @@ app.put("/vehicles/:id", async (request, response) => {
         }
     }
     catch (error) {
+        console.error(error.message);
+        response.status(500).send("Internal Server Error");
+    }
+});
+
+// delete one
+app.delete('/vehicles/:id', async (request, response) => {
+    const { id } = request.params;
+    try {
+        const results = await pool.query('REMOVE FROM vehicles WHERE id = $1 RETURNING *', [id]);
+        if (results.rowCount === 0) {
+            response.status(404).send("Not found"); return;
+        }
+        else {
+            response.status(200).json(results.rows[0]); return;
+        }
+    }
+    catch (err) {
         console.error(error.message);
         response.status(500).send("Internal Server Error");
     }
