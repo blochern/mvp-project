@@ -15,7 +15,8 @@ dotenv.config();
 const { Pool } = require('pg');
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
-app.use(express.static("public"));
+// setting up the 'public' file and express.json() parser
+app.use(express.static("public"), express.json());
 
 // get all route
 app.get("/vehicles", async (request, response) => {
@@ -42,6 +43,30 @@ app.get("/vehicles/:id", async (request, response) => {
         }
     }
     catch (err) {
+        console.error(error.message);
+        response.status(500).send("Internal Server Error");
+    }
+});
+
+// post one
+app.post("/vehicles", async (request, response) => {
+    const { name, tech_level, weapon_type, cost, faction, stealth } = request.body;
+    if (!name || isNaN(+tech_level) || !weapon_type || isNaN(+cost) || !faction || (typeof stealth) !== 'boolean') {
+        response.status(400).send("Invalid name, tech_level, weapon_type, cost, faction, or stealth"); return;
+    }
+    try {
+        const results = await pool.query(
+            "INSERT INTO vehicles (name, tech_level, weapon_type, cost, faction, stealth) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+            [name, tech_level, weapon_type, cost, faction, stealth]
+        );
+        if (results.rowCount === 0) {
+            response.status(500).send("Could not POST to /vehicles"); return;
+        }
+        else {
+            response.status(201).json(results.rows[0]); return;
+        }
+    }
+    catch (error) {
         console.error(error.message);
         response.status(500).send("Internal Server Error");
     }
