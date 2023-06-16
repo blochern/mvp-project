@@ -19,21 +19,9 @@ app.use(express.static("public"));
 
 // get all route
 app.get("/vehicles", async (request, response) => {
-    const { search } = request.body;
     try {
-        if (!search) {
-            const results = await pool.query("SELECT * FROM vehicles;");
-            response.json(results.rows); return;
-        }
-        else {
-            const results = await pool.query(`SELECT * FROM vehicles WHERE name LIKE %${search}%`);
-            if (results.rowCount === 0) {
-                response.status(404).send("Not found"); return;
-            }
-            else {
-                response.json(results.rows); return;
-            }
-        }
+        const results = await pool.query("SELECT * FROM vehicles;");
+        response.json(results.rows); return;
     }
     catch (error) {
         console.error(error.message);
@@ -61,4 +49,4 @@ app.get("/vehicles/:id", async (request, response) => {
 
 
 // 2. Listener
-app.listen(process.env.PORT, () => { console.log("Server is running, listening on port...", process.env.PORT) });
+app.listen(process.env.PORT, () => { console.log("Server is running, port...", process.env.PORT) });
