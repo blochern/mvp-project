@@ -1,0 +1,51 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+#pagetop {
+    background-color: darkred;
+    display: flex;
+    /* z-index: 4;
+    position: fixed; */
+    width: 100%;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    min-width: 400px;
+}
+
+
+input[type=text] {
+    width: 800px;
+    padding: 10px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 200px;
+    background-color: #4CAF50;
+    padding: 12px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.id, .integer {
+    color:gold;
+}
