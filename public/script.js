@@ -93,8 +93,8 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
     event.preventDefault();
 
     // remove the previous back button (if it exists)
-    if (backButton) {
-        backButton.remove();
+    if (document.querySelector('#back-button')) {
+        document.querySelector('#back-button').remove();
     }
 
     // create a back button
