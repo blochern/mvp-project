@@ -46,7 +46,7 @@ const createEntry = (object) => {
             deleteButton.textContent = "Delete";
             td.appendChild(deleteButton);
             deleteButton.addEventListener('click', deleteEntry);
-            td.classlist.add("last");
+            td.classlist = "last";
         }
     }
     tr.children[0].classList.add("id");
