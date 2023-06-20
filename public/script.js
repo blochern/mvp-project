@@ -102,6 +102,7 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
             tableBody[i].children.remove();
         }
         displayDefault();
+        backButton.remove();
     });
 
     // clear the table
