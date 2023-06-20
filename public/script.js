@@ -136,7 +136,7 @@ const editEntry = (event) => {
     const editForm = document.createElement('form');
     editForm.action = '';
     editForm.id = 'edit-form';
-    
+
     const eName = document.createElement('input');
     eName.type = 'text';
     eName.id = 'e-name';
@@ -205,16 +205,18 @@ const update = (event) => {
     event.preventDefault();
     const entry = event.target.parentElement.parentElement;
     const id = entry.children[0].textContent;
+    const requestBody = {
+        name: document.querySelector('#e-name').value,
+        tech_level: document.querySelector('#e-tech-level').value,
+        weapon_type: document.querySelector('#e-weapon-type').value,
+        cost: document.querySelector('#e-cost').value,
+        faction: document.querySelector('#e-faction').value,
+        stealth: document.querySelector('#e-stealth').checked === true
+    };
+    console.log(requestBody);
     fetch(`/vehicles/${id}`, {
         method: "PUT",
-        body: JSON.stringify({
-            name: document.querySelector('#e-name').value,
-            tech_level: document.querySelector('#e-tech-level').value,
-            weapon_type: document.querySelector('#e-weapon-type').value,
-            cost: document.querySelector('#e-cost').value,
-            faction: document.querySelector('#e-faction').value,
-            stealth: document.querySelector('#e-stealth').checked
-        }),
+        body: JSON.stringify(requestBody),
         headers: {
             "Content-type": "application/json"
         }
