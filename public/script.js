@@ -120,7 +120,9 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
                 "Content-type": "application/json"
             }
         }).then((response) => response.json()).then((data) => { 
-            createEntry(data);
+            for (let elem in data) {
+                createEntry(elem);
+            }
          })
     }
     catch (error) { console.error(error.message); }
