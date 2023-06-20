@@ -46,12 +46,12 @@ const createEntry = (object) => {
             deleteButton.textContent = "Delete";
             td.appendChild(deleteButton);
             deleteButton.addEventListener('click', deleteEntry);
-            td.classlist = "last";
         }
     }
     tr.children[0].classList.add("id");
     tr.children[2].classList += "integer";
     tr.children[4].classList += "integer";
+    tr.children[8].classList += "last";
     fillEntry(tr, object);
     tableBody.appendChild(tr);
 }
