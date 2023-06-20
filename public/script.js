@@ -118,7 +118,7 @@ createForm.addEventListener('submit', (event) => {
 const deleteEntry = async (event) => {
     const entry = event.target.parentElement.parentElement;
     const id = entry.children[0].textContent;
-    console.log(id);
+    console.log(`/vehicles/${id}`);
     fetch(`/vehicles/${id}`, {
         method: "DELETE"
     }).then((response) => response.json()).then((data) => { console.log(data); })

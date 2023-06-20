@@ -109,7 +109,7 @@ app.delete('/vehicles/:id', async (request, response) => {
             response.status(200).json(results.rows[0]); return;
         }
     }
-    catch (err) {
+    catch (error) {
         console.error(error.message);
         response.status(500).send("Internal Server Error");
     }
