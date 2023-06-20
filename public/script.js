@@ -52,11 +52,15 @@ const createEntry = (object) => {
     tableBody.appendChild(tr);
 }
 
-fetch("/vehicles").then((response) => response.json()).then((data) => {
-    for (let elem of data) {
-        createEntry(elem);
-    }
-});
+const displayDefault = () => {
+    fetch("/vehicles").then((response) => response.json()).then((data) => {
+        for (let elem of data) {
+            createEntry(elem);
+        }
+    });
+}
+
+displayDefault();
 
 document.querySelector('#create-form').addEventListener('submit', (event) => {
     event.preventDefault();
@@ -83,6 +87,43 @@ document.querySelector('#create-form').addEventListener('submit', (event) => {
         document.querySelector('#v-faction').value = "";
         document.querySelector('#v-stealth').checked = false;
     });
+});
+
+document.querySelector('#search-function').addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    // create a back button
+    const backButton = document.createElement('button');
+    backButton.id = 'back-button';
+    backButton.textContent = 'Back';
+    document.querySelector('#search-function').parentElement.appendChild(backButton);
+    backButton.addEventListener('click', (event) => {
+        for (let i = 1; i < tableBody.length; i++) {
+            tableBody[i].remove();
+        }
+        displayDefault();
+    });
+
+    // clear the table
+    for (let i = 0; i < tableBody.length; i++) {
+        tableBody[i].remove();
+    }
+
+    // try to display the found vehicle
+    try {
+        fetch(`/vehicle_search`, {
+            method: "GET",
+            body: {
+                search: JSON.stringify(document.querySelector('#search').value)
+            },
+            headers: {
+                "Content-type": "application/json"
+            }
+        }).then((response) => response.json()).then((data) => { 
+            createEntry(data);
+         })
+    }
+    catch (error) { console.error(error.message); }
 });
 
 const deleteEntry = (event) => {
