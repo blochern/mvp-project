@@ -158,7 +158,7 @@ const editEntry = (event) => {
     eWeaponType.placeholder = 'Weapon Type...';
     eWeaponType.required = 'required';
     eWeaponType.value = entry.children[3].textContent;
-    editForm.appendChild(eTechLevel);
+    editForm.appendChild(eWeaponType);
 
     const eCost = document.createElement('input');
     eCost.type = 'number';
