@@ -127,19 +127,17 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
     try {
         let searchString = "/vehicle_search/" + document.querySelector('#search').value;
         console.log(searchString);
-        fetch(searchString).then((response) => response.json()).then((data) => {
-            console.log(data);
-            if (data[0] === {}) {
-                const td = document.createElement('td');
-                td.colSpan = 9;
-                td.textContent = "Didn't find anything...";
+        fetch(searchString).then((response) => { response.json(); if (response.status === 404) {
+            const td = document.createElement('td');
+            td.colSpan = 9;
+            td.textContent = "Didn't find anything...";
 
-                const tr = document.createElement('tr');
+            const tr = document.createElement('tr');
 
-                tr.appendChild(td);
-                tableBody.appendChild(tr);
-                return;
-            }
+            tr.appendChild(td);
+            tableBody.appendChild(tr);
+            return;
+        }}).then((data) => {
             for (let elem of data) {
                 createEntry(elem);
             }
