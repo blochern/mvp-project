@@ -128,6 +128,11 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
         let searchString = "/vehicle_search/" + document.querySelector('#search').value;
         console.log(searchString);
         fetch(searchString).then((response) => response.json()).then((data) => {
+            if (data.length === 0) {
+                const tr = document.createElement('tr');
+                tableBody.appendChild(tr);
+                tr.textContent = "Didn't find anything...";
+            }
             for (let elem of data) {
                 createEntry(elem);
             }
@@ -135,9 +140,6 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
     }
     catch (error) { 
         console.error(error.message); 
-        const tr = document.createElement('tr');
-        tableBody.appendChild(tr);
-        tr.textContent = "Didn't find anything..."
     }
 });
 
