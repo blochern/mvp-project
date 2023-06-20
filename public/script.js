@@ -98,8 +98,8 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
     backButton.textContent = 'Back';
     document.querySelector('#search-function').parentElement.appendChild(backButton);
     backButton.addEventListener('click', (event) => {
-        for (let i = 1; i < tableBody.length; i++) {
-            tableBody[i].remove();
+        for (let i = 1; i < tableBody.children.length; i++) {
+            tableBody[i].children.remove();
         }
         displayDefault();
     });
@@ -111,15 +111,7 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
 
     // try to display the found vehicle
     try {
-        fetch(`/vehicle_search`, {
-            method: "GET",
-            body: {
-                search: JSON.stringify(document.querySelector('#search').value)
-            },
-            headers: {
-                "Content-type": "application/json"
-            }
-        }).then((response) => response.json()).then((data) => { 
+        fetch(`/vehicle_search/${document.querySelector('#search').value}`).then((response) => response.json()).then((data) => { 
             for (let elem in data) {
                 createEntry(elem);
             }

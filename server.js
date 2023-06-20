@@ -49,8 +49,8 @@ app.get("/vehicles/:id", async (request, response) => {
 });
 
 // get vehicle(s) by search
-app.get('/vehicle_search', async (request, response) => {
-    const { search } = request.body;
+app.get('/vehicle_search/:search', async (request, response) => {
+    const { search } = request.params;
     try {
         const results = await pool.query(`SELECT * FROM vehicles WHERE LOWER ( vehicles.name ) LIKE '%${search.toLowerCase()}%';`);
         if (results.rowCount === 0) {
