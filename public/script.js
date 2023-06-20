@@ -238,11 +238,21 @@ const editEntry = (event) => {
             }
         }).then((response) => response.json()).then((data) => {
             const array = Object.values(data);
-            for (let i = 1; i < array.length; i++) {
+            for (let i = 1; i < 8; i++) {
                 const td = document.createElement('td');
-                td.textContent = array[i];
+                if (i === 7) {
+                    const editButton = document.createElement('button');
+                    editButton.textContent = "Edit";
+                    td.appendChild(editButton);
+                    editButton.addEventListener('click', editEntry);
+                } else {
+                    td.textContent = array[i];
+                }
                 entry.replaceChild(td, entry.children[i]);
             }
+            tr.children[0].classList.add("id");
+            tr.children[2].classList += "integer";
+            tr.children[4].classList += "integer";
         })
     });
 }
