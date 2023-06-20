@@ -162,7 +162,7 @@ const editEntry = (event) => {
     eCost.value = parseInt(entry.children[4].textContent);
     editForm.appendChild(eCost);
 
-    const eFaction = document.createAttribute('input');
+    const eFaction = document.createElement('input');
     eFaction.type = 'text';
     eFaction.id = 'e-faction';
     eFaction.placeholder = 'Faction...';
