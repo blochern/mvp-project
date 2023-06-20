@@ -131,6 +131,7 @@ const editEntry = (event) => {
     const id = entry.children[0].textContent;
     const editForm = document.createElement('form');
     editForm.id = 'edit-form';
+    editForm.action = '';
     
     const eName = document.createElement('input');
     eName.type = 'text';
@@ -179,9 +180,7 @@ const editEntry = (event) => {
     p.appendChild(eStealth);
     editForm.appendChild(p);
 
-    const div = document.createElement('div');
     const tr = document.createElement('tr');
     tr.appendChild(editForm);
-    div.appendChild(tr);
-    tableBody.insertBefore(div, entry);
+    tableBody.insertBefore(tr, entry);
 }
