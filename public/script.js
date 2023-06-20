@@ -98,17 +98,12 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
     backButton.textContent = 'Back';
     document.querySelector('#search-function').parentElement.appendChild(backButton);
     backButton.addEventListener('click', (event) => {
-        for (let elem in tableBody.children) {
-            elem.remove();
-        }
-        displayDefault();
+        console.log(tableBody.children);
         backButton.remove();
     });
 
     // clear the table
-    for (let elem in tableBody.children) {
-        elem.remove();
-    }
+    console.log(tableBody.children);
 
     // try to display the found vehicle
     try {
