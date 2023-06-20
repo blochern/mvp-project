@@ -176,6 +176,7 @@ const editEntry = (event) => {
     eWeaponType.id = 'e-weapon-type';
     eWeaponType.placeholder = 'Weapon Type...';
     eWeaponType.required = 'required';
+    eWeaponType.textContent = entry.children[3].textContent;
     td.appendChild(eWeaponType);
     editForm.appendChild(td);
     entry.replaceChild(td, entry.children[3]);
@@ -238,7 +239,7 @@ const editEntry = (event) => {
         }).then((response) => response.json()).then((data) => {
             const array = Object.values(data);
             for (let i = 1; i < array.length; i++) {
-                const td = document.createElement(td);
+                const td = document.createElement('td');
                 td.textContent = array[i];
                 entry.replaceChild(td, entry.children[i]);
             }
