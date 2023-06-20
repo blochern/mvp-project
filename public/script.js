@@ -130,8 +130,8 @@ const editEntry = (event) => {
     const entry = event.target.parentElement.parentElement;
     const id = entry.children[0].textContent;
     const editForm = document.createElement('form');
-    editForm.id = 'edit-form';
     editForm.action = '';
+    editForm.id = 'edit-form';
     
     const eName = document.createElement('input');
     eName.type = 'text';
@@ -180,7 +180,10 @@ const editEntry = (event) => {
     p.appendChild(eStealth);
     editForm.appendChild(p);
 
-    const tr = document.createElement('tr');
-    tr.appendChild(editForm);
+    const td = document.createElement('td');
+    td.appendChild(editForm);
+
+    const tr = document.createAttribute('tr');
+    tr.appendChild(td);
     tableBody.insertBefore(tr, entry);
 }
