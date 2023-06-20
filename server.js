@@ -48,6 +48,24 @@ app.get("/vehicles/:id", async (request, response) => {
     }
 });
 
+// get vehicle(s) by search
+app.get('/vehicles/search', async (request, response) => {
+    const { search } = request.body;
+    try {
+        const results = await pool.query('SELECT * FROM vehicles WHERE name LIKE %$1%', [search]);
+        if (results.rowCount === 0) {
+            response.status(404).send("Not found"); return;
+        }
+        else {
+            response.status(200).json(results.rows); return;
+        }
+    }
+    catch (err) {
+        console.error(error.message);
+        response.status(500).send("Internal Server Error");
+    }
+});
+
 // post one
 app.post("/vehicles", async (request, response) => {
     const { name, tech_level, weapon_type, cost, faction, stealth } = request.body;
