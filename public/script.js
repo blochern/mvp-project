@@ -1,20 +1,9 @@
-console.log("Script is all hooked up and ready to go, cap'n!");
-
-const exampleObject = {
-    id: 1,
-    name: "Attack Bike",
-    tech_level: 1,
-    weapon_type: "Tiberium Core Missiles",
-    cost: 600,
-    faction: "Brotherhood of Nod (NOD)",
-    stealth: false
-}
 
 const header = document.getElementById("HEADER");
 const entriesArray = document.getElementsByClassName("entry");
 const tableBody = document.getElementById("table").children[0];
 
-
+// puts the data (fetched from the backend) into td's (that have been created in createEntry)
 const fillEntry = (entry, object) => {
     const items = entry.children;
     const values = Object.values(object);
@@ -25,6 +14,7 @@ const fillEntry = (entry, object) => {
     }
 }
 
+// creates an entry on the table (fills data with 'object' by default, if given)
 const createEntry = (object) => {
     // creating the table row
     const tr = document.createElement('tr');
@@ -56,83 +46,7 @@ const createEntry = (object) => {
     tableBody.appendChild(tr);
 }
 
-const displayDefault = () => {
-    fetch("/vehicles").then((response) => response.json()).then((data) => {
-        for (let elem of data) {
-            createEntry(elem);
-        }
-    });
-}
-
-displayDefault();
-
-document.querySelector('#create-form').addEventListener('submit', (event) => {
-    event.preventDefault();
-    let requestObject = {
-        name: document.querySelector('#v-name').value,
-        tech_level: parseInt(document.querySelector('#v-tech-level').value),
-        weapon_type: document.querySelector('#v-weapon-type').value,
-        cost: parseInt(document.querySelector('#v-cost').value),
-        faction: document.querySelector('#v-faction').value,
-        stealth: document.querySelector('#v-stealth').checked
-    };
-    fetch("/vehicles", {
-        method: "POST",
-        body: JSON.stringify(requestObject),
-        headers: {
-            "Content-type": "application/json"
-        }
-    }).then((response) => response.json()).then((data) => {
-        createEntry(data);
-        document.querySelector('#v-name').value = "";
-        document.querySelector('#v-tech-level').value = 1;
-        document.querySelector('#v-weapon-type').value = "";
-        document.querySelector('#v-cost').value = 300;
-        document.querySelector('#v-faction').value = "";
-        document.querySelector('#v-stealth').checked = false;
-    });
-});
-
-document.querySelector('#search-function').addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    // remove the previous back button (if it exists)
-    if (document.querySelector('#back-button')) {
-        document.querySelector('#back-button').remove();
-    }
-
-    // create a back button
-    const backButton = document.createElement('button');
-    backButton.id = 'back-button';
-    backButton.textContent = 'Back';
-    document.querySelector('#search-function').appendChild(backButton);
-    backButton.addEventListener('click', (event) => {
-        // the back button clears the table, and...
-        let i = tableBody.children.length - 1;
-        while (i > 0) {
-            tableBody.children[i].remove();
-            i--;
-        }
-        // disappears after it's selected, and...
-        backButton.remove();
-        // goes back to display the default table
-        displayDefault();
-    });
-
-    // clear the table
-    let i = tableBody.children.length - 1;
-    while (i > 0) {
-        tableBody.children[i].remove();
-        i--;
-    }
-    const searchString = "/vehicle_search/" + document.querySelector('#search').value;
-    fetch(searchString).then((response) => response.json()).then((data) => {
-        for (let elem of data) {
-            createEntry(elem);
-        }
-    })
-});
-
+// deletes an entry (pretty simple)
 const deleteEntry = (event) => {
     const entry = event.target.parentElement.parentElement;
     const id = entry.children[0].textContent;
@@ -142,6 +56,7 @@ const deleteEntry = (event) => {
     entry.remove();
 }
 
+// edit an entry (very long!)
 const editEntry = (event) => {
     const entry = event.target.parentElement.parentElement;
     const id = entry.children[0].textContent;
@@ -256,3 +171,84 @@ const editEntry = (event) => {
         })
     });
 }
+
+// event listener for submitting the "create" form
+document.querySelector('#create-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    let requestObject = {
+        name: document.querySelector('#v-name').value,
+        tech_level: parseInt(document.querySelector('#v-tech-level').value),
+        weapon_type: document.querySelector('#v-weapon-type').value,
+        cost: parseInt(document.querySelector('#v-cost').value),
+        faction: document.querySelector('#v-faction').value,
+        stealth: document.querySelector('#v-stealth').checked
+    };
+    fetch("/vehicles", {
+        method: "POST",
+        body: JSON.stringify(requestObject),
+        headers: {
+            "Content-type": "application/json"
+        }
+    }).then((response) => response.json()).then((data) => {
+        createEntry(data);
+        document.querySelector('#v-name').value = "";
+        document.querySelector('#v-tech-level').value = 1;
+        document.querySelector('#v-weapon-type').value = "";
+        document.querySelector('#v-cost').value = 300;
+        document.querySelector('#v-faction').value = "";
+        document.querySelector('#v-stealth').checked = false;
+    });
+});
+
+// event listener for searching for an entry by name
+document.querySelector('#search-function').addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    // remove the previous back button (if it exists)
+    if (document.querySelector('#back-button')) {
+        document.querySelector('#back-button').remove();
+    }
+
+    // create a back button
+    const backButton = document.createElement('button');
+    backButton.id = 'back-button';
+    backButton.textContent = 'Back';
+    document.querySelector('#search-function').appendChild(backButton);
+    backButton.addEventListener('click', (event) => {
+        // the back button clears the table, and...
+        let i = tableBody.children.length - 1;
+        while (i > 0) {
+            tableBody.children[i].remove();
+            i--;
+        }
+        // disappears after it's selected, and...
+        backButton.remove();
+        // goes back to display the default table
+        displayDefault();
+    });
+
+    // clear the table
+    let i = tableBody.children.length - 1;
+    while (i > 0) {
+        tableBody.children[i].remove();
+        i--;
+    }
+    const searchString = "/vehicle_search/" + document.querySelector('#search').value;
+    fetch(searchString).then((response) => response.json()).then((data) => {
+        for (let elem of data) {
+            createEntry(elem);
+        }
+    })
+});
+
+// function that displays "default" information (GET all)
+const displayDefault = () => {
+    fetch("/vehicles").then((response) => response.json()).then((data) => {
+        for (let elem of data) {
+            createEntry(elem);
+        }
+    });
+}
+
+// top of the call stack -- display default info
+displayDefault();

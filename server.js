@@ -133,5 +133,5 @@ app.delete('/vehicles/:id', async (request, response) => {
     }
 });
 
-// 2. Listener
+// listener
 app.listen(process.env.PORT, () => { console.log("Server is running, port...", process.env.PORT) });
