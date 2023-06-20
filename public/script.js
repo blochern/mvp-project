@@ -160,7 +160,8 @@ const editEntry = (event) => {
     eName.placeholder = 'Name...';
     eName.required = 'required';
     eName.value = entry.children[1].textContent;
-    editForm.appendChild(eName);
+    editform.appendChild(eName);
+    entry.replaceChild(eName, entry.children[1]);
 
     let p = document.createElement('p');
     p.textContent = "Tech Level: ";
