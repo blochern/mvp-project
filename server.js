@@ -101,7 +101,7 @@ app.put("/vehicles/:id", async (request, response) => {
 app.delete('/vehicles/:id', async (request, response) => {
     const { id } = request.params;
     try {
-        const results = await pool.query('REMOVE FROM vehicles WHERE id = $1 RETURNING *', [id]);
+        const results = await pool.query('DELETE FROM vehicles WHERE id = $1 RETURNING *', [id]);
         if (results.rowCount === 0) {
             response.status(404).send("Not found"); return;
         }
