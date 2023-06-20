@@ -198,28 +198,24 @@ const editEntry = (event) => {
     tr.appendChild(td);
     tableBody.insertBefore(tr, entry);
 
-    editForm.addEventListener('submit', update);
-}
-
-const update = (event) => {
-    event.preventDefault();
-    const entry = event.target.parentElement.parentElement;
-    const id = entry.children[0].textContent;
-    const requestBody = {
-        name: document.querySelector('#e-name').value,
-        tech_level: parseInt(document.querySelector('#e-tech-level').value),
-        weapon_type: document.querySelector('#e-weapon-type').value,
-        cost: parseInt(document.querySelector('#e-cost').value),
-        faction: document.querySelector('#e-faction').value,
-        stealth: document.querySelector('#e-stealth').checked === true
-    };
-    console.log(requestBody);
-    console.log(`/vehicles/${id}`);
-    fetch(`/vehicles/${id}`, {
-        method: "PUT",
-        body: JSON.stringify(requestBody),
-        headers: {
-            "Content-type": "application/json"
-        }
-    }).then((response) => response.json()).then((data) => { console.log(data); })
+    editForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const requestBody = {
+            name: document.querySelector('#e-name').value,
+            tech_level: parseInt(document.querySelector('#e-tech-level').value),
+            weapon_type: document.querySelector('#e-weapon-type').value,
+            cost: parseInt(document.querySelector('#e-cost').value),
+            faction: document.querySelector('#e-faction').value,
+            stealth: document.querySelector('#e-stealth').checked === true
+        };
+        console.log(requestBody);
+        console.log(`/vehicles/${id}`);
+        fetch(`/vehicles/${id}`, {
+            method: "PUT",
+            body: JSON.stringify(requestBody),
+            headers: {
+                "Content-type": "application/json"
+            }
+        }).then((response) => response.json()).then((data) => { console.log(data); })
+    });
 }
