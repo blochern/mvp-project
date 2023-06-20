@@ -50,7 +50,7 @@ app.get("/vehicles/:id", async (request, response) => {
 
 // get vehicle(s) by search
 app.get('/vehicle_search', async (request, response) => {
-    const { search } = request.body;
+    let { search } = request.body;
     search = "%" + search + "%";
     try {
         const results = await pool.query(`SELECT * FROM vehicles WHERE name LIKE $1;`, [search]);
