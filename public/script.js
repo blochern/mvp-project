@@ -181,6 +181,7 @@ const editEntry = (event) => {
     editForm.appendChild(p);
 
     const td = document.createElement('td');
+    td.colSpan = 9;
     td.appendChild(editForm);
 
     const tr = document.createElement('tr');
