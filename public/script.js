@@ -104,8 +104,8 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
     document.querySelector('#search-function').parentElement.appendChild(backButton);
     backButton.addEventListener('click', (event) => {
         console.log(tableBody.children);
-        for (let i = 0; i < tableBody.children.length; i++) {
-            tableBody.children[i].remove();
+        for (let i = 1; i < tableBody.children.length; i++) {
+            tableBody.children[1].remove();
         }
         backButton.remove();
         displayDefault();
@@ -114,7 +114,7 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
     // clear the table
     console.log(tableBody.children);
     for (let i = 0; i < tableBody.children.length; i++) {
-        tableBody.children[i].remove();
+        tableBody.children[1].remove();
     }
 
     // try to display the found vehicle
