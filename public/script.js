@@ -36,6 +36,12 @@ const createEntry = (object) => {
     tr.children[4].classList += "integer";
     fillEntry(tr, object);
     tableBody.appendChild(tr);
+    const editButton = document.createElement('button');
+    editButton.textContent = "Edit";
+    tr.appendChild(editButton);
+    const deleteButton = document.createElement('button');
+    editButton.textContent = "Delete";
+    tr.appendChild(deleteButton);
 }
 
 fetch("/vehicles").then((response) => response.json()).then((data) => { 
@@ -44,9 +50,9 @@ fetch("/vehicles").then((response) => response.json()).then((data) => {
     }
  });
 
-const submitForm = document.querySelector('#submit-form');
+const createForm = document.querySelector('#create-form');
 
-submitForm.addEventListener('submit', (event) => {
+createForm.addEventListener('submit', (event) => {
     event.preventDefault();
     let requestObject = {
         name: "",
@@ -56,7 +62,7 @@ submitForm.addEventListener('submit', (event) => {
         faction: "",
         stealth: false
     };
-    for (let elem of submitForm) {
+    for (let elem of createForm) {
         switch (elem.id) {
             case "v-name": {
                 requestObject.name = elem.value;
@@ -98,6 +104,6 @@ submitForm.addEventListener('submit', (event) => {
             "Content-type": "application/json"
         }
     }).then((response) => response.json()).then((data) => {
-        console.log(data);
+        createEntry(data);
     });
 });
