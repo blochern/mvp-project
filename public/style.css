@@ -17,6 +17,10 @@ tr {
     background-color:rgb(75, 81, 81);
 }
 
+th {
+    background-color:rgb(38, 41, 41);
+}
+
 .first {
     border-top-left-radius: 14px;
     border-bottom-left-radius: 14px;
