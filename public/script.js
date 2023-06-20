@@ -176,7 +176,7 @@ const editEntry = (event) => {
     eWeaponType.id = 'e-weapon-type';
     eWeaponType.placeholder = 'Weapon Type...';
     eWeaponType.required = 'required';
-    eWeaponType.textContent = entry.children[3].textContent;
+    eWeaponType.value = entry.children[3].textContent;
     td.appendChild(eWeaponType);
     editForm.appendChild(td);
     entry.replaceChild(td, entry.children[3]);
@@ -240,6 +240,9 @@ const editEntry = (event) => {
             const array = Object.values(data);
             for (let i = 1; i < 8; i++) {
                 const td = document.createElement('td');
+                if (i === 2 || i === 4) {
+                    td.classList += "integer";
+                }
                 if (i === 7) {
                     const editButton = document.createElement('button');
                     editButton.textContent = "Edit";
@@ -250,9 +253,6 @@ const editEntry = (event) => {
                 }
                 entry.replaceChild(td, entry.children[i]);
             }
-            tr.children[0].classList.add("id");
-            tr.children[2].classList += "integer";
-            tr.children[4].classList += "integer";
         })
     });
 }
