@@ -35,12 +35,12 @@ const createEntry = (object) => {
         if (i === 7) {
             const editButton = document.createElement('button');
             editButton.textContent = "Edit";
-            tr.appendChild(editButton);
+            td.appendChild(editButton);
         }
         if (i === 9) {
             const deleteButton = document.createElement('button');
             editButton.textContent = "Delete";
-            tr.appendChild(deleteButton);
+            td.appendChild(deleteButton);
         }
     }
     tr.children[0].classList += "id";
