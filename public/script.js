@@ -39,7 +39,7 @@ const createEntry = (object) => {
         }
         if (i === 8) {
             const deleteButton = document.createElement('button');
-            editButton.textContent = "Delete";
+            deleteButton.textContent = "Delete";
             td.appendChild(deleteButton);
         }
     }
