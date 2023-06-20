@@ -128,6 +128,7 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
         let searchString = "/vehicle_search/" + document.querySelector('#search').value;
         console.log(searchString);
         fetch(searchString).then((response) => response.json()).then((data) => {
+            console.log(data);
             if (data[0] === {}) {
                 const td = document.createElement('td');
                 td.colSpan = 9;
