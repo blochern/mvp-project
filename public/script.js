@@ -198,21 +198,25 @@ const editEntry = (event) => {
     tr.appendChild(td);
     tableBody.insertBefore(tr, entry);
 
-    editForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        fetch(`/vehicles/${id}`, {
-            method: "UPDATE",
-            body: JSON.stringify({
-                name: document.querySelector('#e-name').value,
-                tech_level: document.querySelector('#e-tech-level').value,
-                weapon_type: document.querySelector('#e-weapon-type').value,
-                cost: document.querySelector('#e-cost').value,
-                faction: document.querySelector('#e-faction').value,
-                stealth: document.querySelector('#e-stealth').checked
-            }),
-            headers: {
-                "Content-type": "application/json"
-            }
-        }).then((response) => response.json()).then((data) => { console.log(data); })
-    })
+    editForm.addEventListener('submit', update);
+}
+
+const update = (event) => {
+    event.preventDefault();
+    const entry = event.target.parentElement.parentElement;
+    const id = entry.children[0].textContent;
+    fetch(`/vehicles/${id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+            name: document.querySelector('#e-name').value,
+            tech_level: document.querySelector('#e-tech-level').value,
+            weapon_type: document.querySelector('#e-weapon-type').value,
+            cost: document.querySelector('#e-cost').value,
+            faction: document.querySelector('#e-faction').value,
+            stealth: document.querySelector('#e-stealth').checked
+        }),
+        headers: {
+            "Content-type": "application/json"
+        }
+    }).then((response) => response.json()).then((data) => { console.log(data); })
 }
