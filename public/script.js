@@ -58,53 +58,16 @@ fetch("/vehicles").then((response) => response.json()).then((data) => {
     }
 });
 
-const createForm = document.querySelector('#create-form');
-
-createForm.addEventListener('submit', (event) => {
+document.querySelector('#create-form').addEventListener('submit', (event) => {
     event.preventDefault();
     let requestObject = {
-        name: "",
-        tech_level: 0,
-        weapon_type: "",
-        cost: 0,
-        faction: "",
-        stealth: false
+        name: document.querySelector('#v-name').value,
+        tech_level: parseInt(document.querySelector('#v-tech-level').value),
+        weapon_type: document.querySelector('#v-weapon-type').value,
+        cost: parseInt(document.querySelector('#v-cost').value),
+        faction: document.querySelector('#v-faction').value,
+        stealth: document.querySelector('#v-stealth').checked
     };
-    for (let elem of createForm) {
-        switch (elem.id) {
-            case "v-name": {
-                requestObject.name = elem.value;
-                console.log(requestObject.name);
-                break;
-            }
-            case "v-tech-level": {
-                requestObject.tech_level = elem.value;
-                console.log(requestObject.tech_level);
-                break;
-            }
-            case "v-weapon_type": {
-                requestObject.weapon_type = elem.value;
-                console.log(requestObject.weapon_type);
-                break;
-            }
-            case "v-cost": {
-                requestObject.cost = elem.value;
-                console.log(requestObject.cost);
-                break;
-            }
-            case "v-faction": {
-                requestObject.faction = elem.value;
-                console.log(requestObject.faction);
-                break;
-            }
-            case "v-stealth": {
-                requestObject.stealth = elem.checked;
-                console.log(requestObject.stealth);
-                break;
-            }
-        }
-    }
-    console.log(requestObject);
     fetch("/vehicles", {
         method: "POST",
         body: JSON.stringify(requestObject),
@@ -113,6 +76,12 @@ createForm.addEventListener('submit', (event) => {
         }
     }).then((response) => response.json()).then((data) => {
         createEntry(data);
+        document.querySelector('#v-name').value = "";
+        document.querySelector('#v-tech-level').value = 1;
+        document.querySelector('#v-weapon-type').value = "";
+        document.querySelector('#v-cost').value = 300;
+        document.querySelector('#v-faction').value = "";
+        document.querySelector('#v-stealth').checked = false;
     });
 });
 
@@ -212,7 +181,7 @@ const editEntry = (event) => {
             weapon_type: document.querySelector('#e-weapon-type').value,
             cost: parseInt(document.querySelector('#e-cost').value),
             faction: document.querySelector('#e-faction').value,
-            stealth: document.querySelector('#e-stealth').checked === true
+            stealth: document.querySelector('#e-stealth').checked
         };
         console.log(requestBody);
         console.log(`/vehicles/${id}`);
