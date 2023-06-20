@@ -125,7 +125,7 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
     // try to display the found vehicle(s)
     try {
         let searchString = "/vehicle_search/" + document.querySelector('#search').value;
-        fetch(searchString).then((response) => { response.json(); if (response.status === 404) {
+        fetch(searchString).then((response) => response.json(), (response) => {
             const td = document.createElement('td');
             td.colSpan = 9;
             td.textContent = "Didn't find anything...";
@@ -135,7 +135,7 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
             tr.appendChild(td);
             tableBody.appendChild(tr);
             return;
-        }}).then((data) => {
+        }).then((data) => {
             console.log(data);
             for (let elem of data) {
                 createEntry(elem);
