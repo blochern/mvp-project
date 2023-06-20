@@ -41,6 +41,7 @@ const createEntry = (object) => {
             const deleteButton = document.createElement('button');
             deleteButton.textContent = "Delete";
             td.appendChild(deleteButton);
+            deleteButton.addEventListener('click', deleteEntry);
         }
     }
     tr.children[0].classList += "id";
@@ -113,3 +114,7 @@ createForm.addEventListener('submit', (event) => {
         createEntry(data);
     });
 });
+
+const deleteEntry = (event) => {
+    console.log(event.target);
+}
