@@ -119,7 +119,6 @@ createForm.addEventListener('submit', (event) => {
 const deleteEntry = (event) => {
     const entry = event.target.parentElement.parentElement;
     const id = entry.children[0].textContent;
-    console.log(`/vehicles/${id}`);
     fetch(`/vehicles/${id}`, {
         method: "DELETE"
     }).then((response) => response.json()).then((data) => { console.log(data); })
@@ -127,6 +126,11 @@ const deleteEntry = (event) => {
 }
 
 const editEntry = (event) => {
+    if (document.querySelector('#edit-tr')) {
+        const toRemove = document.querySelector('#edit-tr');
+        toRemove.remove();
+    }
+
     const entry = event.target.parentElement.parentElement;
     const id = entry.children[0].textContent;
     const editForm = document.createElement('form');
@@ -180,11 +184,35 @@ const editEntry = (event) => {
     p.appendChild(eStealth);
     editForm.appendChild(p);
 
+    const eSubmit = document.createElement('button');
+    eSubmit.type = 'submit';
+    eSubmit.textContent = 'Submit';
+    editForm.appendChild(eSubmit);
+
     const td = document.createElement('td');
     td.colSpan = 9;
     td.appendChild(editForm);
 
     const tr = document.createElement('tr');
+    tr.id = 'edit-tr';
     tr.appendChild(td);
     tableBody.insertBefore(tr, entry);
+
+    editForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        fetch(`/vehicles/${id}`, {
+            method: "UPDATE",
+            body: JSON.stringify({
+                name: document.querySelector('#e-name').value,
+                tech_level: document.querySelector('#e-tech-level').value,
+                weapon_type: document.querySelector('#e-weapon-type').value,
+                cost: document.querySelector('#e-cost').value,
+                faction: document.querySelector('#e-faction').value,
+                stealth: document.querySelector('#e-stealth').checked
+            }),
+            headers: {
+                "Content-type": "application/json"
+            }
+        }).then((response) => response.json()).then((data) => { console.log(data); })
+    })
 }
