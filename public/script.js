@@ -113,8 +113,10 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
 
     // clear the table
     console.log(tableBody.children);
-    for (let i = 0; i < tableBody.children.length; i++) {
-        tableBody.children[1].remove();
+    let i = tableBody.children.length - 1;
+    while (i > 1) {
+        tableBody.children[i].remove();
+        i--;
     }
 
     // try to display the found vehicle
