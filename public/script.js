@@ -99,7 +99,7 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
     document.querySelector('#search-function').parentElement.appendChild(backButton);
     backButton.addEventListener('click', (event) => {
         for (let i = 1; i < tableBody.children.length; i++) {
-            tableBody[i].children.remove();
+            tableBody.children[i].remove();
         }
         displayDefault();
         backButton.remove();
