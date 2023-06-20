@@ -33,7 +33,7 @@ const createEntry = (object) => {
         const td = document.createElement('td');
         tr.appendChild(td);
         if (i === 0) {
-            td.classList.add("first");
+            td.classList = "first";
         }
         if (i === 7) {
             const editButton = document.createElement('button');
@@ -49,7 +49,7 @@ const createEntry = (object) => {
             td.classlist.add("last");
         }
     }
-    tr.children[0].classList += "id";
+    tr.children[0].classList.add("id");
     tr.children[2].classList += "integer";
     tr.children[4].classList += "integer";
     fillEntry(tr, object);
