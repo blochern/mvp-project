@@ -163,33 +163,30 @@ const editEntry = (event) => {
     editForm.appendChild(eName);
     entry.replaceChild(eName, entry.children[1]);
 
-    let p = document.createElement('p');
-    p.textContent = "Tech Level: ";
     const eTechLevel = document.createElement('input');
     eTechLevel.type = 'number';
     eTechLevel.id = 'e-tech-level';
     eTechLevel.required = 'required';
     eTechLevel.value = parseInt(entry.children[2].textContent);
-    p.appendChild(eTechLevel);
-    editForm.appendChild(p);
+    editForm.appendChild(eTechLevel);
+    entry.replaceChild(eTechLevel, entry.children[2]);
 
     const eWeaponType = document.createElement('input');
     eWeaponType.type = 'text';
     eWeaponType.id = 'e-weapon-type';
     eWeaponType.placeholder = 'Weapon Type...';
     eWeaponType.required = 'required';
-    eWeaponType.value = entry.children[3].textContent;
     editForm.appendChild(eWeaponType);
+    entry.replaceChild(eWeaponType, entry.children[3]);
 
-    p = document.createElement('p');
-    p.textContent = "Cost: ";
+
     const eCost = document.createElement('input');
     eCost.type = 'number';
     eCost.id = 'e-cost';
     eCost.required = 'required';
     eCost.value = parseInt(entry.children[4].textContent);
-    p.appendChild(eCost);
-    editForm.appendChild(p);
+    editForm.appendChild(eCost);
+    entry.replaceChild(eCost, entry.children[4]);
 
     const eFaction = document.createElement('input');
     eFaction.type = 'text';
@@ -198,29 +195,20 @@ const editEntry = (event) => {
     eFaction.required = 'required';
     eFaction.value = entry.children[5].textContent;
     editForm.appendChild(eFaction);
+    entry.replaceChild(eFaction, entry.children[5]);
 
-    p = document.createElement('p');
-    p.textContent = "Stealth: ";
     const eStealth = document.createElement('input');
     eStealth.type = 'checkbox';
     eStealth.id = 'e-stealth';
     eStealth.checked = entry.children[6].textContent === 'true';
-    p.appendChild(eStealth);
-    editForm.appendChild(p);
+    editForm.appendChild(eStealth);
+    entry.replaceChild(eStealth, entry.children[6]);
 
     const eSubmit = document.createElement('button');
     eSubmit.type = 'submit';
     eSubmit.textContent = 'Submit';
     editForm.appendChild(eSubmit);
-
-    const td = document.createElement('td');
-    td.colSpan = 9;
-    td.appendChild(editForm);
-
-    const tr = document.createElement('tr');
-    tr.id = 'edit-tr';
-    tr.appendChild(td);
-    tableBody.insertBefore(tr, entry);
+    entry.replaceChild(eSubmit, entry.children[7]);
 
     editForm.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -241,8 +229,8 @@ const editEntry = (event) => {
                 "Content-type": "application/json"
             }
         }).then((response) => response.json()).then((data) => {
-            fillEntry(entry, data);
-            document.querySelector('#edit-tr').remove();
+            createEntry(data);
+            entry.remove();
         })
     });
 }

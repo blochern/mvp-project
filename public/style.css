@@ -15,7 +15,6 @@ body {
 
 tr {
     background-color:rgb(75, 81, 81);
-    margin-bottom:2px;
 }
 
 .first {
@@ -32,6 +31,9 @@ table, th, td {
     min-width:150px;
     border-collapse: collapse;
     text-align: center;
+    border-bottom-style:solid;
+    border-bottom-color:rgb(95, 104, 104);
+    border-bottom-width:2px;
 }
 
 #pagetop {
