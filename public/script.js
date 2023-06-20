@@ -26,29 +26,35 @@ const fillEntry = (entry, object) => {
 }
 
 const createEntry = (object) => {
+    // creating the table row
     const tr = document.createElement('tr');
-    for (let i = 0; i < 7; i++) {
+    // creating 9 td's
+    for (let i = 0; i < 9; i++) {
         const td = document.createElement('td');
         tr.appendChild(td);
+        if (i === 7) {
+            const editButton = document.createElement('button');
+            editButton.textContent = "Edit";
+            tr.appendChild(editButton);
+        }
+        if (i === 9) {
+            const deleteButton = document.createElement('button');
+            editButton.textContent = "Delete";
+            tr.appendChild(deleteButton);
+        }
     }
     tr.children[0].classList += "id";
     tr.children[2].classList += "integer";
     tr.children[4].classList += "integer";
     fillEntry(tr, object);
     tableBody.appendChild(tr);
-    const editButton = document.createElement('button');
-    editButton.textContent = "Edit";
-    tr.appendChild(editButton);
-    const deleteButton = document.createElement('button');
-    editButton.textContent = "Delete";
-    tr.appendChild(deleteButton);
 }
 
-fetch("/vehicles").then((response) => response.json()).then((data) => { 
+fetch("/vehicles").then((response) => response.json()).then((data) => {
     for (let elem of data) {
         createEntry(elem);
     }
- });
+});
 
 const createForm = document.querySelector('#create-form');
 
