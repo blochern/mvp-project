@@ -129,9 +129,14 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
         console.log(searchString);
         fetch(searchString).then((response) => response.json()).then((data) => {
             if (data.length === 0) {
+                const td = document.createElement('td');
+                td.colSpan = 9;
+                td.textContent = "Didn't find anything...";
+
                 const tr = document.createElement('tr');
+
+                tr.appendChild(td);
                 tableBody.appendChild(tr);
-                tr.textContent = "Didn't find anything...";
             }
             for (let elem of data) {
                 createEntry(elem);
