@@ -116,5 +116,5 @@ createForm.addEventListener('submit', (event) => {
 });
 
 const deleteEntry = (event) => {
-    console.log(event.target);
+    console.log(event.target.parentElement.parentElement);
 }
