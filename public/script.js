@@ -92,6 +92,11 @@ document.querySelector('#create-form').addEventListener('submit', (event) => {
 document.querySelector('#search-function').addEventListener('submit', (event) => {
     event.preventDefault();
 
+    // remove the previous back button (if it exists)
+    if (backButton) {
+        backButton.remove();
+    }
+
     // create a back button
     const backButton = document.createElement('button');
     backButton.id = 'back-button';
@@ -99,20 +104,25 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
     document.querySelector('#search-function').parentElement.appendChild(backButton);
     backButton.addEventListener('click', (event) => {
         console.log(tableBody.children);
+        for (let i = 0; i < tableBody.children.length; i++) {
+            tableBody.children[i].remove();
+        }
         backButton.remove();
+        displayDefault();
     });
 
     // clear the table
     console.log(tableBody.children);
+    for (let i = 0; i < tableBody.children.length; i++) {
+        tableBody.children[i].remove();
+    }
 
     // try to display the found vehicle
     try {
         let searchString = "/vehicle_search/" + document.querySelector('#search').value;
         console.log(searchString);
         fetch(searchString).then((response) => response.json()).then((data) => { 
-            for (let elem in data) {
-                createEntry(elem);
-            }
+                console.log(data);
          })
     }
     catch (error) { console.error(error.message); }
