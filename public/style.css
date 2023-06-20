@@ -32,7 +32,7 @@ table, th, td {
     border-collapse: collapse;
     text-align: center;
     border-bottom-style:solid;
-    border-bottom-color:rgba(0, 0, 0, 0.001);
+    border-bottom-color:rgba(0, 0, 0, 0.1);
     border-bottom-width:2px;
 }
 
