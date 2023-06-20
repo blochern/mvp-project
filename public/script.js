@@ -145,12 +145,15 @@ const editEntry = (event) => {
     eName.value = entry.children[1].textContent;
     editForm.appendChild(eName);
 
+    let p = document.createElement('p');
+    p.textContent = "Tech Level: ";
     const eTechLevel = document.createElement('input');
     eTechLevel.type = 'number';
     eTechLevel.id = 'e-tech-level';
     eTechLevel.required = 'required';
     eTechLevel.value = parseInt(entry.children[2].textContent);
-    editForm.appendChild(eTechLevel);
+    p.appendChild(eTechLevel);
+    editForm.appendChild(p);
 
     const eWeaponType = document.createElement('input');
     eWeaponType.type = 'text';
@@ -160,12 +163,15 @@ const editEntry = (event) => {
     eWeaponType.value = entry.children[3].textContent;
     editForm.appendChild(eWeaponType);
 
+    p = document.createElement('p');
+    p.textContent = "Cost: ";
     const eCost = document.createElement('input');
     eCost.type = 'number';
     eCost.id = 'e-cost';
     eCost.required = 'required';
     eCost.value = parseInt(entry.children[4].textContent);
-    editForm.appendChild(eCost);
+    p.appendChild(eCost);
+    editForm.appendChild(p);
 
     const eFaction = document.createElement('input');
     eFaction.type = 'text';
@@ -175,7 +181,7 @@ const editEntry = (event) => {
     eFaction.value = entry.children[5].textContent;
     editForm.appendChild(eFaction);
 
-    const p = document.createElement('p');
+    p = document.createElement('p');
     p.textContent = "Stealth: ";
     const eStealth = document.createElement('input');
     eStealth.type = 'checkbox';
@@ -218,7 +224,7 @@ const editEntry = (event) => {
             }
         }).then((response) => response.json()).then((data) => { 
             fillEntry(entry, data);
-            editForm.remove();
+            document.querySelector('#edit-tr').remove();
          })
     });
 }
