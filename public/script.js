@@ -33,7 +33,7 @@ const createEntry = (object) => {
         const td = document.createElement('td');
         tr.appendChild(td);
         if (i === 0) {
-            td.classList.push("first");
+            td.classList.add("first");
         }
         if (i === 7) {
             const editButton = document.createElement('button');
@@ -46,7 +46,7 @@ const createEntry = (object) => {
             deleteButton.textContent = "Delete";
             td.appendChild(deleteButton);
             deleteButton.addEventListener('click', deleteEntry);
-            td.classlist.push("last");
+            td.classlist.add("last");
         }
     }
     tr.children[0].classList += "id";

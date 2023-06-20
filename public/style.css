@@ -15,6 +15,7 @@ body {
 
 tr {
     background-color:rgb(75, 81, 81);
+    border-collapse: separate;
 }
 
 .first {
@@ -29,6 +30,7 @@ tr {
 
 table, th, td {
     min-width:150px;
+    border-collapse: collapse;
 }
 
 #pagetop {
@@ -51,7 +53,7 @@ input[type=text], input[type=number] {
     padding: 8px;
     display: inline-block;
     border: 1px solid #7b7979;
-    border-radius: 4px;
+    border-radius: 8px;
     box-sizing: border-box;
 }
 
@@ -59,9 +61,9 @@ button {
     width: 100px;
     background-color: #af4c4c;
     padding: 12px;
-    color: white;
+    color: rgb(193, 193, 193);
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
 }
 
