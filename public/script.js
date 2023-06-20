@@ -139,10 +139,8 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
                 tableBody.appendChild(tr);
                 return;
             }
-            else {
-                response.json()
-            }
         }).then((data) => {
+            data = JSON.parse(data);
             for (let elem of data) {
                 createEntry(elem);
             }
