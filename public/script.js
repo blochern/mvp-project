@@ -143,75 +143,82 @@ const deleteEntry = (event) => {
 }
 
 const editEntry = (event) => {
-    if (document.querySelector('#edit-tr')) {
-        const toRemove = document.querySelector('#edit-tr');
-        toRemove.remove();
-    }
-
     const entry = event.target.parentElement.parentElement;
     const id = entry.children[0].textContent;
     const editForm = document.createElement('form');
     editForm.action = '';
     editForm.id = 'edit-form';
 
+    let td = document.createElement('td');
     const eName = document.createElement('input');
     eName.type = 'text';
     eName.id = 'e-name';
     eName.placeholder = 'Name...';
     eName.required = 'required';
     eName.value = entry.children[1].textContent;
-    editForm.appendChild(eName);
-    entry.replaceChild(eName, entry.children[1]);
+    td.appendChild(eName);
+    editForm.appendChild(td);
+    entry.replaceChild(td, entry.children[1]);
 
+    td = document.createElement('td');
     const eTechLevel = document.createElement('input');
     eTechLevel.type = 'number';
     eTechLevel.id = 'e-tech-level';
     eTechLevel.required = 'required';
     eTechLevel.value = parseInt(entry.children[2].textContent);
-    editForm.appendChild(eTechLevel);
-    entry.replaceChild(eTechLevel, entry.children[2]);
+    td.appendChild(eTechLevel);
+    editForm.appendChild(td);
+    entry.replaceChild(td, entry.children[2]);
 
+    td = document.createElement('td');
     const eWeaponType = document.createElement('input');
     eWeaponType.type = 'text';
     eWeaponType.id = 'e-weapon-type';
     eWeaponType.placeholder = 'Weapon Type...';
     eWeaponType.required = 'required';
-    editForm.appendChild(eWeaponType);
-    entry.replaceChild(eWeaponType, entry.children[3]);
+    td.appendChild(eWeaponType);
+    editForm.appendChild(td);
+    entry.replaceChild(td, entry.children[3]);
 
-
+    td = document.createElement('td');
     const eCost = document.createElement('input');
     eCost.type = 'number';
     eCost.id = 'e-cost';
     eCost.required = 'required';
     eCost.value = parseInt(entry.children[4].textContent);
-    editForm.appendChild(eCost);
-    entry.replaceChild(eCost, entry.children[4]);
+    td.appendChild(eCost);
+    editForm.appendChild(td);
+    entry.replaceChild(td, entry.children[4]);
 
+    td = document.createElement('td');
     const eFaction = document.createElement('input');
     eFaction.type = 'text';
     eFaction.id = 'e-faction';
     eFaction.placeholder = 'Faction...';
     eFaction.required = 'required';
     eFaction.value = entry.children[5].textContent;
-    editForm.appendChild(eFaction);
-    entry.replaceChild(eFaction, entry.children[5]);
+    td.appendChild(eFaction);
+    editForm.appendChild(td);
+    entry.replaceChild(td, entry.children[5]);
 
+    td = document.createElement('td');
     const eStealth = document.createElement('input');
     eStealth.type = 'checkbox';
     eStealth.id = 'e-stealth';
     eStealth.checked = entry.children[6].textContent === 'true';
-    editForm.appendChild(eStealth);
-    entry.replaceChild(eStealth, entry.children[6]);
+    td.appendChild(eStealth);
+    editForm.appendChild(td);
+    entry.replaceChild(td, entry.children[6]);
 
+    td = document.createElement('td');
     const eSubmit = document.createElement('button');
     eSubmit.type = 'submit';
     eSubmit.textContent = 'Submit';
-    editForm.appendChild(eSubmit);
-    entry.replaceChild(eSubmit, entry.children[7]);
+    td.appendChild(eSubmit);
+    editForm.appendChild(td);
+    entry.replaceChild(td, entry.children[7]);
 
-    editForm.addEventListener('submit', (event) => {
-        event.preventDefault();
+    eSubmit.addEventListener('click', (event) => {
         const requestBody = {
             name: document.querySelector('#e-name').value,
             tech_level: parseInt(document.querySelector('#e-tech-level').value),
@@ -229,8 +236,12 @@ const editEntry = (event) => {
                 "Content-type": "application/json"
             }
         }).then((response) => response.json()).then((data) => {
-            createEntry(data);
-            entry.remove();
+            const array = Object.values(data);
+            for (let i = 1; i < array.length; i++) {
+                const td = document.createElement(td);
+                td.textContent = array[i];
+                entry.replaceChild(td, entry.children[i]);
+            }
         })
     });
 }
