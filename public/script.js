@@ -128,7 +128,7 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
         let searchString = "/vehicle_search/" + document.querySelector('#search').value;
         console.log(searchString);
         fetch(searchString).then((response) => {
-            if (response.status === 400) {
+            if (response.status === 404) {
                 const td = document.createElement('td');
                 td.colSpan = 9;
                 td.textContent = "Didn't find anything...";
