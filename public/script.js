@@ -103,31 +103,42 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
     backButton.textContent = 'Back';
     document.querySelector('#search-function').parentElement.appendChild(backButton);
     backButton.addEventListener('click', (event) => {
-        console.log(tableBody.children);
-        for (let i = 1; i < tableBody.children.length; i++) {
-            tableBody.children[1].remove();
+        // the back button clears the table, and...
+        let i = tableBody.children.length - 1;
+        while (i > 0) {
+            tableBody.children[i].remove();
+            i--;
         }
+        // disappears after it's selected, and...
         backButton.remove();
+        // goes back to display the default table
         displayDefault();
     });
 
     // clear the table
     console.log(tableBody.children);
     let i = tableBody.children.length - 1;
-    while (i > 1) {
+    while (i > 0) {
         tableBody.children[i].remove();
         i--;
     }
 
-    // try to display the found vehicle
+    // try to display the found vehicle(s)
     try {
         let searchString = "/vehicle_search/" + document.querySelector('#search').value;
         console.log(searchString);
-        fetch(searchString).then((response) => response.json()).then((data) => { 
-                console.log(data);
-         })
+        fetch(searchString).then((response) => response.json()).then((data) => {
+            for (let elem of data) {
+                createEntry(elem);
+            }
+        })
     }
-    catch (error) { console.error(error.message); }
+    catch (error) { 
+        console.error(error.message); 
+        const tr = document.createElement('tr');
+        tableBody.appendChild(tr);
+        tr.textContent = "Didn't find anything..."
+    }
 });
 
 const deleteEntry = (event) => {
@@ -236,9 +247,9 @@ const editEntry = (event) => {
             headers: {
                 "Content-type": "application/json"
             }
-        }).then((response) => response.json()).then((data) => { 
+        }).then((response) => response.json()).then((data) => {
             fillEntry(entry, data);
             document.querySelector('#edit-tr').remove();
-         })
+        })
     });
 }
