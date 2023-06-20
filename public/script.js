@@ -121,30 +121,12 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
         tableBody.children[i].remove();
         i--;
     }
-
-    // try to display the found vehicle(s)
-    try {
-        let searchString = "/vehicle_search/" + document.querySelector('#search').value;
-        fetch(searchString).then((response) => response.json(), (response) => {
-            const td = document.createElement('td');
-            td.colSpan = 9;
-            td.textContent = "Didn't find anything...";
-
-            const tr = document.createElement('tr');
-
-            tr.appendChild(td);
-            tableBody.appendChild(tr);
-            return;
-        }).then((data) => {
-            console.log(data);
-            for (let elem of data) {
-                createEntry(elem);
-            }
-        })
-    }
-    catch (error) {
-        console.error(error.message);
-    }
+    const searchString = "/vehicle_search/" + document.querySelector('#search').value;
+    fetch(searchString).then((response) => response.json()).then((data) => {
+        for (let elem of data) {
+            createEntry(elem);
+        }
+    })
 });
 
 const deleteEntry = (event) => {
