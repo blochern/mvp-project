@@ -1,5 +1,5 @@
 body {
-    background-color: "./bg/bg.jpg";
+    background-image: url('./bg/bg.jpg');
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 15px;
     line-height: 1.5;
