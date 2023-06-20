@@ -43,3 +43,61 @@ fetch("/vehicles").then((response) => response.json()).then((data) => {
         createEntry(elem);
     }
  });
+
+const submitForm = document.querySelector('#submit-form');
+
+submitForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    let requestObject = {
+        name: "",
+        tech_level: 0,
+        weapon_type: "",
+        cost: 0,
+        faction: "",
+        stealth: false
+    };
+    for (let elem of submitForm) {
+        switch (elem.id) {
+            case "v-name": {
+                requestObject.name = elem.value;
+                console.log(requestObject.name);
+                break;
+            }
+            case "v-tech-level": {
+                requestObject.tech_level = elem.value;
+                console.log(requestObject.tech_level);
+                break;
+            }
+            case "v-weapon_type": {
+                requestObject.weapon_type = elem.value;
+                console.log(requestObject.weapon_type);
+                break;
+            }
+            case "v-cost": {
+                requestObject.cost = elem.value;
+                console.log(requestObject.cost);
+                break;
+            }
+            case "v-faction": {
+                requestObject.faction = elem.value;
+                console.log(requestObject.faction);
+                break;
+            }
+            case "v-stealth": {
+                requestObject.stealth = elem.checked;
+                console.log(requestObject.stealth);
+                break;
+            }
+        }
+    }
+    console.log(requestObject);
+    fetch("/vehicles", {
+        method: "POST",
+        body: JSON.stringify(requestObject),
+        headers: {
+            "Content-type": "application/json"
+        }
+    }).then((response) => response.json()).then((data) => {
+        console.log(data);
+    });
+});
