@@ -216,6 +216,9 @@ const editEntry = (event) => {
             headers: {
                 "Content-type": "application/json"
             }
-        }).then((response) => response.json()).then((data) => { console.log(data); })
+        }).then((response) => response.json()).then((data) => { 
+            fillEntry(entry, data);
+            editForm.remove();
+         })
     });
 }
