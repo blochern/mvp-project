@@ -32,6 +32,9 @@ const createEntry = (object) => {
     for (let i = 0; i < 9; i++) {
         const td = document.createElement('td');
         tr.appendChild(td);
+        if (i === 0) {
+            td.classList += "first";
+        }
         if (i === 7) {
             const editButton = document.createElement('button');
             editButton.textContent = "Edit";
@@ -43,6 +46,7 @@ const createEntry = (object) => {
             deleteButton.textContent = "Delete";
             td.appendChild(deleteButton);
             deleteButton.addEventListener('click', deleteEntry);
+            td.classlist += "last";
         }
     }
     tr.children[0].classList += "id";
@@ -101,7 +105,7 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
     const backButton = document.createElement('button');
     backButton.id = 'back-button';
     backButton.textContent = 'Back';
-    document.querySelector('#search-function').parentElement.appendChild(backButton);
+    document.querySelector('#search-function').appendChild(backButton);
     backButton.addEventListener('click', (event) => {
         // the back button clears the table, and...
         let i = tableBody.children.length - 1;
