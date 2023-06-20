@@ -21,7 +21,7 @@ app.use(express.static("public"), express.json());
 // get all route
 app.get("/vehicles", async (request, response) => {
     try {
-        const results = await pool.query("SELECT * FROM vehicles ORDER BY id DESC;");
+        const results = await pool.query("SELECT * FROM vehicles ORDER BY id ASC;");
         response.json(results.rows); return;
     }
     catch (error) {
