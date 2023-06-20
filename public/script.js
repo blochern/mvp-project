@@ -179,7 +179,9 @@ const editEntry = (event) => {
     p.appendChild(eStealth);
     editForm.appendChild(p);
 
+    const div = document.createElement('div');
     const tr = document.createElement('tr');
     tr.appendChild(editForm);
-    tableBody.insertBefore(tr, entry);
+    div.appendChild(tr);
+    tableBody.insertBefore(div, entry);
 }
