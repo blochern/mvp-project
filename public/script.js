@@ -36,6 +36,7 @@ const createEntry = (object) => {
             const editButton = document.createElement('button');
             editButton.textContent = "Edit";
             td.appendChild(editButton);
+            editButton.addEventListener('click', editEntry);
         }
         if (i === 8) {
             const deleteButton = document.createElement('button');
@@ -123,4 +124,60 @@ const deleteEntry = (event) => {
         method: "DELETE"
     }).then((response) => response.json()).then((data) => { console.log(data); })
     entry.remove();
+}
+
+const editEntry = (event) => {
+    const entry = event.target.parentElement.parentElement;
+    const id = entry.children[0].textContent;
+    const editForm = document.createElement('form');
+    editForm.id = 'edit-form';
+    
+    const eName = document.createElement('input');
+    eName.type = 'text';
+    eName.id = 'e-name';
+    eName.placeholder = 'Name...';
+    eName.required = 'required';
+    eName.value = entry.children[1].textContent;
+    editForm.appendChild(eName);
+
+    const eTechLevel = document.createElement('input');
+    eTechLevel.type = 'number';
+    eTechLevel.id = 'e-tech-level';
+    eTechLevel.required = 'required';
+    eTechLevel.value = parseInt(entry.children[2].textContent);
+    editForm.appendChild(eTechLevel);
+
+    const eWeaponType = document.createElement('input');
+    eWeaponType.type = 'text';
+    eWeaponType.id = 'e-weapon-type';
+    eWeaponType.placeholder = 'Weapon Type...';
+    eWeaponType.required = 'required';
+    eWeaponType.value = entry.children[3].textContent;
+    editForm.appendChild(eTechLevel);
+
+    const eCost = document.createElement('input');
+    eCost.type = 'number';
+    eCost.id = 'e-cost';
+    eCost.required = 'required';
+    eCost.value = parseInt(entry.children[4].textContent);
+    editForm.appendChild(eCost);
+
+    const eFaction = document.createAttribute('input');
+    eFaction.type = 'text';
+    eFaction.id = 'e-faction';
+    eFaction.placeholder = 'Faction...';
+    eFaction.required = 'required';
+    eFaction.value = entry.children[5].textContent;
+    editForm.appendChild(eFaction);
+
+    const p = document.createElement('p');
+    p.textContent = "Stealth: ";
+    const eStealth = document.createElement('input');
+    eStealth.type = 'checkbox';
+    eStealth.id = 'e-stealth';
+    eStealth.checked = entry.children[6].textContent === 'true';
+    p.appendChild(eStealth);
+    editForm.appendChild(p);
+
+    tableBody.insertBefore(editForm, entry);
 }
