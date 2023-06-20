@@ -183,7 +183,7 @@ const editEntry = (event) => {
     const td = document.createElement('td');
     td.appendChild(editForm);
 
-    const tr = document.createAttribute('tr');
+    const tr = document.createElement('tr');
     tr.appendChild(td);
     tableBody.insertBefore(tr, entry);
 }
