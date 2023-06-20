@@ -207,13 +207,14 @@ const update = (event) => {
     const id = entry.children[0].textContent;
     const requestBody = {
         name: document.querySelector('#e-name').value,
-        tech_level: document.querySelector('#e-tech-level').value,
+        tech_level: parseInt(document.querySelector('#e-tech-level').value),
         weapon_type: document.querySelector('#e-weapon-type').value,
-        cost: document.querySelector('#e-cost').value,
+        cost: parseInt(document.querySelector('#e-cost').value),
         faction: document.querySelector('#e-faction').value,
         stealth: document.querySelector('#e-stealth').checked === true
     };
     console.log(requestBody);
+    console.log(`/vehicles/${id}`);
     fetch(`/vehicles/${id}`, {
         method: "PUT",
         body: JSON.stringify(requestBody),
