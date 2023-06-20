@@ -37,7 +37,7 @@ const createEntry = (object) => {
             editButton.textContent = "Edit";
             td.appendChild(editButton);
         }
-        if (i === 9) {
+        if (i === 8) {
             const deleteButton = document.createElement('button');
             editButton.textContent = "Delete";
             td.appendChild(deleteButton);
