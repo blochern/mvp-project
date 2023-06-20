@@ -116,7 +116,6 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
     });
 
     // clear the table
-    console.log(tableBody.children);
     let i = tableBody.children.length - 1;
     while (i > 0) {
         tableBody.children[i].remove();
@@ -126,7 +125,6 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
     // try to display the found vehicle(s)
     try {
         let searchString = "/vehicle_search/" + document.querySelector('#search').value;
-        console.log(searchString);
         fetch(searchString).then((response) => { response.json(); if (response.status === 404) {
             const td = document.createElement('td');
             td.colSpan = 9;
@@ -138,6 +136,7 @@ document.querySelector('#search-function').addEventListener('submit', (event) =>
             tableBody.appendChild(tr);
             return;
         }}).then((data) => {
+            console.log(data);
             for (let elem of data) {
                 createEntry(elem);
             }
