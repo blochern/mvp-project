@@ -1,6 +1,3 @@
-
-const header = document.getElementById("HEADER");
-const entriesArray = document.getElementsByClassName("entry");
 const tableBody = document.getElementById("table").children[0];
 
 // puts the data (fetched from the backend) into td's (that have been created in createEntry)
@@ -143,8 +140,6 @@ const editEntry = (event) => {
             faction: document.querySelector('#e-faction').value,
             stealth: document.querySelector('#e-stealth').checked
         };
-        console.log(requestBody);
-        console.log(`/vehicles/${id}`);
         fetch(`/vehicles/${id}`, {
             method: "PUT",
             body: JSON.stringify(requestBody),
