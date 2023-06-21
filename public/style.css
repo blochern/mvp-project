@@ -91,4 +91,9 @@ button:hover {
     border-color:rgb(98, 103, 103);
     border-style:ridge;
     border-width:10px;
+    position:absolute;
+    bottom:0px;
+    width:100%;
+    z-index:2;
+    overflow:hidden;
 }
